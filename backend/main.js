@@ -225,7 +225,8 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 // cors header
 app.use(cors())
-
+// Serve static index.html in static/dist/frontend folder
+app.use(express.static(`${__dirname}/static/dist/frontend`))
 
 // POST /api/login
 app.post('/api/login', async (req, resp) => {
@@ -265,6 +266,11 @@ app.post('/api/upload', upload.single('file'), async (req, resp) => {
 		resp.type('application/json')
 		resp.json({msg: `${e}`})
     }
+})
+
+// Redirect back to landing page if no resource matches
+app.use((req, resp) => {
+    resp.redirect('/')
 })
 
 //#endregion

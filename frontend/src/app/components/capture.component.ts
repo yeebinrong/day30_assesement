@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import {Subject} from 'rxjs';
+import { ApiService } from '../api.service';
 import {CameraService} from '../camera.service';
 import {CameraImage} from '../models';
 
@@ -23,9 +25,14 @@ export class CaptureComponent implements OnInit {
 	trigger = new Subject<void>()
 	switchCamera = new Subject<boolean | string>()
 
-	constructor(private router: Router, private cameraSvc: CameraService) { }
+	constructor(private router: Router, private cameraSvc: CameraService, private apiSvc:ApiService) { }
 
 	ngOnInit(): void {
+		// Redirect back to landingpage is credentials not found
+		if (!!!this.apiSvc.getCredentials()) {
+			this.router.navigate(['/'])
+			console.error("Error 401 (Unauthorized) Please re-login.")
+		}
 		WebcamUtil.getAvailableVideoInputs()
 			.then(devs => this.webcams = devs)
 	}

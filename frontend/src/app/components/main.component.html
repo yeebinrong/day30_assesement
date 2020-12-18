@@ -1,37 +1,36 @@
-
-<div class="row mt-2">
-	<div class="col">
+<div fxFill fxLayout="column">
+    <div class="m-1" fxLayout="row" fxLayoutAlign="center center">
 		<h2>Share Something Today</h2>
 	</div>
-</div>
-
-<div class="row mt-2">
-	<div class="col d-flex justify-content-center">
+	<div fxLayoutAlign="center center" fxLayout="column">
 		<img class="border img-thumbnail" [src]="imagePath" alt="">
+		<p *ngIf="imagePath == '/assets/cactus.png'" class="error"><em>Please take a picture.</em></p>
 	</div>
+    <div fxFlex fxLayout="row" class="m-1">
+		<mat-card fxFlex="100" fxLayout="column" class="mb-1">
+			<form [formGroup]="form" fxLayout="column">
+				<mat-form-field appearance="outline"> <!-- Title Input -->
+					<mat-label>Title</mat-label>
+                    <input type="text" matInput formControlName="title" placeholder="Your title.">
+                    <mat-error>Please enter a title.</mat-error>
+				</mat-form-field>
+				<mat-form-field appearance="outline"> <!-- Comment Input -->
+					<mat-label>Comment</mat-label>
+					<textarea matInput formControlName="comments" rows="5" cols="40"></textarea>
+					<mat-error>Please enter your comments.</mat-error>
+				</mat-form-field>
+				<div fxLayout.xs="column" fxLayout.sm="row" fxLayoutGap.xs="0.5rem" fxLayoutGap.sm="0"  fxLayoutAlign.sm="space-evenly" fxLayoutAlign.md="space-evenly" fxLayoutAlign.lg="space-evenly">
+					<button type="button" mat-raised-button color="accent"
+						(click)="onSubmit()" [disabled]="form.invalid || imagePath == '/assets/cactus.png'">Share<i class="ml-05 fas fa-share-alt"></i>
+					</button>
+					<button type="button" mat-raised-button color="warn"
+						(click)="clear()">Clear<i class="ml-05 fas fa-trash-alt"></i>
+					</button>
+					<button type="button" mat-raised-button color="primary"
+					[routerLink]="['/', 'capture']">Capture<i class="ml-05 fas fa-camera-retro"></i>
+					</button>
+				</div>
+            </form>
+        </mat-card>
+    </div>
 </div>
-
-<form>
-	<div class="form-group">
-		<label for="title">Title</label>
-		<input id="title" class="form-control" type="text" placeholder="Title">
-	</div>
-	<div class="form-group">
-		<label for="comments">Comments</label>
-		<textarea id="comments"rows="5" class="form-control" placeholder="Your thoughts"></textarea>
-	</div>
-	<div class="d-flex justify-content-between mt-4">
-		<button class="btn btn-lg btn-primary">
-			<span style="margin-right: 5px !important;">Share</span>
-			<i class="fas fa-share-alt"></i>
-		</button>
-		<button class="btn btn-lg btn-warning" (click)="clear()">
-			<span style="margin-right: 5px !important;">Clear</span>
-			<i class="fas fa-trash-alt"></i>
-		</button>
-		<button class="btn btn-lg btn-danger" [routerLink]="['/', 'capture']">
-			<span style="margin-right: 5px !important;">Capture</span>
-			<i class="fas fa-camera-retro"></i>
-		</button>
-	</div>
-</form>

@@ -1,29 +1,28 @@
-
-<div class="row mt-2">
-	<div class="col">
-		<h2>Please Login</h2>
-	</div>
+<div fxFill fxLayout="column">
+    <div fxFlex fxLayout="row" class="m-1" fxLayoutAlign="center stretch">
+        <mat-card fxFlex="70" fxLayout="column" class="mb-1">
+            <div class="m-1" fxLayout="row" fxLayoutAlign="center center">
+                <h1>Please Login</h1>
+            </div>
+            <form [formGroup]="form" fxLayout="column">
+                <mat-form-field appearance="outline"> <!-- Username Input -->
+                    <mat-label>Username</mat-label>
+                    <input type="text" matInput formControlName="user_id" placeholder="Your username.">
+                    <mat-error>Please enter your username.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline"> <!-- Password Input -->
+                    <mat-label>Password</mat-label>
+                    <input  [type]="hide ? 'password' : 'text'" matInput formControlName="password" placeholder="Your password." autocomplete="off">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error>Please enter your password.</mat-error>
+                </mat-form-field>
+                <p class="error"><em>{{errorMessage}}</em></p>
+                <button type="button" (click)="onSubmit()" mat-raised-button color="accent" 
+                    [disabled]="form.invalid">Login<i class="ml-05 fas fa-door-open"></i>
+                </button>
+            </form>
+        </mat-card>
+    </div>
 </div>
-
-<form>
-	<div class="form-group">
-		<label for="title">Username</label>
-		<input id="title" class="form-control" type="text" placeholder="Username"
-				[ngClass]="{'is-invalid': errorMessage}">
-		<div class="invalid-feedback" *ngIf="errorMessage">
-			{{ errorMessage }}
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" id="password" class="form-control" placeholder="Password"
-				[ngClass]="{'is-invalid': errorMessage}">
-	</div>
-
-	<div class="d-flex justify-content-end align-items-center mt-4">
-		<button class="btn btn-lg btn-success">
-			<span style="margin-right: 5px !important;">Login</span>
-			<i class="fas fa-door-open"></i>
-		</button>
-	</div>
-</form>

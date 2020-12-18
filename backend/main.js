@@ -35,8 +35,6 @@ global.env = secure({secret: process.env.ENV_PASSWORD})
 
 
 // ######## MONGO ########
-const MONGO_USER = global.env.MONGO_USER
-const MONGO_PASS = global.env.MONGO_PASS
 const MONGO_DB = global.env.MONGO_DB // mongo_paf2020
 const MONGO_COLLECTION = global.env.MONGO_COLLECTION // data
 const MONGO_URL = 'mongodb://localhost:27017'
@@ -76,7 +74,6 @@ const PORT = parseInt(process.argv[2]) || parseInt(process.env.PORT) || 3000
 // Create an instance of express
 const app = express()
 // Create an instance of multer
-// const upload = multer()
 const upload = multer({dest: UPLOAD_PATH})
 
 //#endregion

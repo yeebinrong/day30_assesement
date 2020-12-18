@@ -29,8 +29,6 @@ export class LoginComponent implements OnInit {
     } catch (e) {
       this.errorMessage = e.error.msg;
       console.log("Authentication error:", e.error.msg)
-      // this.router.navigate(['/'])
-      // this.apiSvc.setCredentials({})
     }
   }
 
@@ -45,5 +43,4 @@ export class LoginComponent implements OnInit {
       password: this.fb.control('', [Validators.required]),
     })
   }
-
 }
